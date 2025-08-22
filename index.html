@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PlanB</title>
+  <meta name="description" content="PlanB — a cute, community‑driven memecoin bringing vibes and honey. Join the hive." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Inter:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --honey: #FFC107;
+      --amber: #FF8A00;
+      --cream: #FFF7E6;
+      --ink: #141416;
+      --leaf: #26C281;
+      --sky: #5CC4FF;
+      --bg: #0f0f11;
+      --muted: #8b8d93;
+      --card: rgba(255,255,255,0.06);
+      --glass: rgba(255, 255, 255, 0.65);
+    }
+    /* Light theme */
+    html.light {
+      --bg: rgb(255, 237, 200); 
+      --ink: #141416;
+      --card: rgba(20,20,22,0.06);
+      --glass: rgba(20,20,22,0.65);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; color: #fff; background: var(--bg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.45;
+    }
+    a { color: var(--sky); text-decoration: none; }
+    img { max-width: 100%; height: auto; }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .9rem 1.2rem; border-radius: 999px; border: 0; cursor: pointer;
+      font-weight: 700; background: linear-gradient(90deg, var(--honey), var(--amber)); color: #141416;
+      box-shadow: 0 10px 24px rgba(255,193,7,.25);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .btn:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 14px 30px rgba(255,193,7,.35); }
+    .btn.secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.15); box-shadow: none; }
+    .badge { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .7rem; border-radius: 999px; background: rgba(255,255,255,.08); font-size: .85rem; }
+    header.nav {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.05)); border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0; }
+    .nav-links { display: none; gap: 1rem; }
+    .nav-links a { color: #fff; opacity: .85; }
+    .nav-actions { display: flex; align-items: center; gap: .6rem; }
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .3px; }
+    .brand span { font-family: "Baloo 2", cursive; font-size: 1.1rem; }
+
+    /* Honeycomb bg */
+    .bg-comb:before {
+      content: ""; position: fixed; inset: -10vh -10vw auto -10vw; height: 80vh; z-index: -1;
+      background-image:
+        radial-gradient(circle at 25px 25px, rgba(255,193,7,.15) 2px, transparent 3px),
+        radial-gradient(circle at 0 0, rgba(255,193,7,.1) 2px, transparent 3px);
+      background-size: 50px 50px;
+      filter: blur(0.3px) saturate(1.1);
+      opacity: .25; pointer-events: none;
+      transform: rotate(-3deg);
+    }
+
+    /* Hero */
+    .hero { position: relative; padding: 6rem 0 4rem; }
+    .hero-grid { display: grid; gap: 2rem; grid-template-columns: 1.1fr .9fr; align-items: center; }
+    .kpi { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .75rem; margin-top: 1.2rem; }
+    .kpi .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: .8rem; text-align: center; }
+    .kpi .label { font-size: .8rem; opacity: .7; }
+    .kpi .value { font-weight: 800; font-family: "Space Mono", monospace; letter-spacing: .3px; }
+    .trust { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; opacity: .85; }
+    .hero h1 { font-family: "Baloo 2", cursive; font-size: clamp(2.2rem, 5vw, 4rem); margin: 0 0 .5rem; }
+    .hero p { color: #d9dae0; font-size: 1.05rem; max-width: 55ch; }
+
+    /* Bee card */
+    .bee-card { background: linear-gradient(135deg, rgba(255,193,7,.15), rgba(255,138,0,.08)); border: 1px solid rgba(255,193,7,.25); border-radius: 22px; padding: 1rem; position: relative; overflow: hidden; }
+    .bee-wrap { aspect-ratio: 1 / 1; display: grid; place-items: center; }
+    .bee-svg { width: 100%; max-width: 420px; }
+    .spark { position: absolute; inset: auto 10% 10% auto; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,193,7,.7), rgba(255,193,7,0)); filter: blur(18px); opacity: .6; }
+
+    /* Sections */
+    section { padding: 4rem 0; }
+    h2 { font-family: "Baloo 2", cursive; font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin: 0 0 1rem; }
+    .grid { display: grid; gap: 1rem; }
+
+    /* Tokenomics */
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
+    .tok-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .addr { font-family: "Space Mono", monospace; font-size: .92rem; word-break: break-all; }
+
+    /* Roadmap */
+    .road { position: relative; }
+    .trail { position: absolute; left: 0; top: 2.2rem; right: 0; height: 4px; background: linear-gradient(90deg, rgba(255,193,7,.4), rgba(255,138,0,.2)); border-radius: 4px; }
+    .steps { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0,1fr)); position: relative; }
+    .step { position: relative; padding-top: 1.8rem; }
+    .step .dot { position: absolute; top: 0; left: .5rem; width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, var(--honey), var(--amber)); box-shadow: 0 0 0 4px rgba(255,193,7,.15); }
+    .step .title { font-weight: 800; }
+    .pill { display: inline-block; padding: .25rem .6rem; border-radius: 999px; font-size: .75rem; background: rgba(255,255,255,.1); }
+
+    /* How to buy */
+    .steps-buy { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .num { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; font-weight: 800; color: #141416; background: linear-gradient(135deg, var(--honey), var(--amber)); box-shadow: 0 6px 16px rgba(255,193,7,.3); }
+
+    /* FAQ */
+    details { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: .8rem 1rem; }
+    summary { cursor: pointer; font-weight: 700; }
+
+    /* Footer */
+    footer { padding: 3rem 0; border-top: 1px solid rgba(255,255,255,.08); color: #c9cad0; }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero { padding-top: 4.5rem; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .kpi { grid-template-columns: repeat(2, 1fr); }
+      .tok-grid, .steps, .steps-buy { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 540px) {
+      .kpi { grid-template-columns: 1fr 1fr; }
+      .tok-grid, .steps, .steps-buy { grid-template-columns: 1fr; }
+    }
+
+    /* Motion */
+    @keyframes floaty { from { transform: translateY(0px); } 50% { transform: translateY(-8px); } to { transform: translateY(0px); } }
+    @keyframes waggle { 0% { transform: rotate(0); } 25% { transform: rotate(-6deg);} 50% { transform: rotate(6deg);} 100% { transform: rotate(0);} }
+    .bee-float { animation: floaty 5s ease-in-out infinite; }
+    .bee-waggle:hover { animation: waggle .7s ease-in-out; transform-origin: 50% 50%; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-comb">
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0%" stop-color="#FFC107" />
+              <stop offset="100%" stop-color="#FF8A00" />
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="28" fill="url(#g1)"/>
+          <circle cx="24" cy="28" r="6" fill="#141416"/>
+          <circle cx="40" cy="28" r="6" fill="#141416"/>
+          <rect x="18" y="36" width="28" height="8" rx="4" fill="#141416"/>
+        </svg>
+        <span>PlanB</span>
+        <span class="badge" title="All vibes & honey">🍯 vibes</span>
+      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#tokenomics">Tokenomics</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#buy">How to Buy</a>
+        <a href="#community">Community</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn secondary" id="themeToggle" aria-pressed="false" title="Toggle theme">🌓 Theme</button>
+        <a class="btn" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Buy $PLANB</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <h1>Bee the Backup. <span style="background:linear-gradient(90deg,var(--honey),var(--amber)); -webkit-background-clip:text; background-clip:text; color:transparent;">PlanB</span> brings the honey.</h1>
+          <p>
+            Cute meme. Real community. Transparent tokenomics. When Plan A dumps, the hive delivers. 🍯
+          </p>
+          <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;">
+            <a class="btn" href="#https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Buy $PLANB</a>
+            <a class="btn secondary" href="#community">Join the Hive</a>
+            <a class="btn secondary" href="#chart" onclick="alert('Hook your chart link here (DexScreener/GeckoTerminal).')">View Chart</a>
+          </div>
+          <div class="kpi" aria-label="Live stats">
+            <div class="card"><div class="label">Price</div><div class="value" id="kpiPrice">$—</div></div>
+            <div class="card"><div class="label">Market Cap</div><div class="value" id="kpiMcap">$—</div></div>
+            <div class="card"><div class="label">24h Volume</div><div class="value" id="kpiVol">$—</div></div>
+            <div class="card"><div class="label">Holders</div><div class="value" id="kpiHolders">—</div></div>
+          </div>
+          <div class="trust">
+            <span class="badge">✅ Audited (link)</span>
+            <span class="badge">🔒 LP Locked</span>
+            <span class="badge">⛓️ Chain: <strong>Abstract</strong></span>
+          </div>
+        </div>
+        <div class="bee-card">
+          <div class="spark" aria-hidden="true"></div>
+          <div class="bee-wrap">
+            <!-- Inline SVG mascot -->
+            <svg class="bee-svg bee-float bee-waggle" viewBox="0 0 300 300" role="img" aria-label="PlanB mascot">
+              <defs>
+                <linearGradient id="nectar" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#FFC107" />
+                  <stop offset="100%" stop-color="#FF8A00" />
+                </linearGradient>
+                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <circle cx="150" cy="150" r="110" fill="url(#nectar)" opacity="0.15" />
+              <!-- Body -->
+              <ellipse cx="150" cy="150" rx="90" ry="70" fill="#222" filter="url(#glow)"/>
+              <g>
+                <ellipse cx="150" cy="150" rx="88" ry="68" fill="url(#nectar)"/>
+                <rect x="90" y="120" width="120" height="60" fill="#141416"/>
+                <rect x="90" y="150" width="120" height="18" fill="#141416" opacity=".9"/>
+              </g>
+              <!-- Eyes -->
+              <circle cx="120" cy="140" r="12" fill="#141416"/>
+              <circle cx="180" cy="140" r="12" fill="#141416"/>
+              <circle cx="116" cy="136" r="4" fill="#fff"/>
+              <circle cx="176" cy="136" r="4" fill="#fff"/>
+              <!-- Wings -->
+              <g opacity=".85">
+                <ellipse cx="210" cy="95" rx="35" ry="22" fill="#EAF7FF"/>
+                <ellipse cx="95" cy="95" rx="35" ry="22" fill="#EAF7FF"/>
+              </g>
+              <!-- Stinger -->
+              <path d="M 240 160 L 270 150 L 240 140 Z" fill="#141416"/>
+              <!-- Smile -->
+              <path d="M120 175 Q150 190 180 175" stroke="#141416" stroke-width="6" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <h2>What is PlanB?</h2>
+        <div class="grid" style="grid-template-columns: 1.2fr .8fr; align-items: center;">
+          <div class="card">
+            <p><strong>PlanB</strong> is all vibes and honey 🍯,  a cute community first memecoin where the fun is real and the mission is sweet: games, merch, real honey, and saving the bees. Built to be simple, transparent, and buzz‑worthy.</p>
+            <ul>
+              <li>🐝 Playful brand with a trustworthy backbone</li>
+              <li>🍯 Honey game + community contests</li>
+              <li>🛍️ Merch drops + real honey tie ins</li>
+              <li>🌍 Bee‑friendly initiatives & education</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 style="margin-top:0">Quick Links</h3>
+            <div class="grid" style="grid-template-columns: 1fr 1fr; gap:.6rem;">
+              <a class="btn" href="#tokenomics">Tokenomics</a>
+              <a class="btn secondary" href="#gallery">gallery</a>
+              <a class="btn secondary" href="#roadmap">Roadmap</a>
+              <a class="btn secondary" href="#buy">How to Buy</a>
+              <a class="btn secondary" href="#faq">FAQ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENOMICS -->
+    <section id="tokenomics">
+      <div class="container">
+        <h2>Tokenomics</h2>
+        <div class="grid tok-grid">
+          <div class="card"><div class="label">Total Supply</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;">TBD</div></div>
+          <div class="card"><div class="label">Taxes</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;">TBD</div></div>
+          <div class="card"><div class="label">Allocation</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;">Community % • LP % • Marketing % • Team %</div></div>
+          <div class="card">
+            <div class="label">Contract Address</div>
+            <div class="addr" id="contract">0x9301d2debE3C501a4BeF6Ba5b273B7bD346fa57E</div>
+            <div style="display:flex; gap:.5rem; margin-top:.5rem;">
+              <button class="btn" onclick="copyAddr()">Copy</button>
+              <a class="btn secondary" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642" target="_blank" rel="noreferrer">View on Explorer</a>
+            </div>
+          </div>
+        </div>
+        <p style="opacity:.85; margin-top:1rem;">Note: Ownership status / renounced info / audit link can be placed here with icons.</p>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap">
+      <div class="container road">
+        <h2>Roadmap</h2>
+        <div class="trail" aria-hidden="true"></div>
+        <div class="steps">
+          <div class="card step">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="title">Phase 1  Hive Setup</div>
+            <p>Launch site & socials, liquidity, first memes, community seeding.</p>
+            <span class="pill">In flight</span>
+          </div>
+          <div class="card step">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="title">Phase 2  Honey Game</div>
+            <p>Casual web mini‑game with bee collectibles & leaderboard contests.</p>
+            <span class="pill">Next</span>
+          </div>
+          <div class="card step">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="title">Phase 3  Merch & Real Honey</div>
+            <p>Merch drops + limited jars of real honey supporting local beekeepers.</p>
+            <span class="pill">Planned</span>
+          </div>
+          <div class="card step">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="title">Phase 4  Save the Bees</div>
+            <p>Donations, education content, and collabs with bee orgs. Cross‑chain listings.</p>
+            <span class="pill">Planned</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO BUY -->
+    <section id="buy">
+      <div class="container">
+        <h2>How to Buy</h2>
+        <div class="grid steps-buy">
+          <div class="card"><div class="num">1</div><h3>Wallet</h3><p>Install a wallet (e.g., Rabby / MetaMask) and fund it with the chain’s native token.</p></div>
+          <div class="card"><div class="num">2</div><h3>Connect</h3><p>Switch to <strong>Abstract</strong> (or your chain) and connect your wallet.</p></div>
+          <div class="card"><div class="num">3</div><h3>Swap</h3><p>Use your preferred DEX. Paste the contract, select $PLANB, confirm slippage/tax.</p></div>
+          <div class="card"><div class="num">4</div><h3>Join the Hive</h3><p>Follow X/Telegram, join contests, and spread the buzz.</p></div>
+        </div>
+        <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;">
+          <a class="btn" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Open DEX</a>
+          <a class="btn secondary" href="https://t.me/PlanBeePortal">Join Community</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY / SOCIALS -->
+    <section id="community">
+      <div class="container">
+        <h2>Community</h2>
+        <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
+          <a class="card" href="https://x.com/_PlanBee_" target="_blank" rel="noreferrer">🐦 Follow on X</a>
+          <a class="card" href="https://t.me/PlanBeePortal" target="_blank" rel="noreferrer">💬 Telegram</a>
+        </div>
+        <p style="opacity:.9; margin-top:1rem;">Shoutouts, memes, and fan art will appear here in a carousel or embedded timeline.</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <h2>FAQ</h2>
+        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+          <details><summary>Is PlanB audited?</summary><p>Audit planned / link goes here. Always DYOR.</p></details>
+          <details><summary>Where can I buy $PLANB?</summary><p>DEX link + step‑by‑step above. CEX listings will be announced.</p></details>
+          <details><summary>What’s the mission?</summary><p>Fun first  but with impact. Honey game, merch, real honey, and saving the bees.</p></details>
+          <details><summary>Contract & taxes?</summary><p>Final numbers posted in Tokenomics and pinned on socials.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+      <div style="display:flex; gap:.6rem; align-items:center;">
+        <strong>PlanB</strong> <span class="badge">No financial advice</span>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle (persists)
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const saved = localStorage.getItem('planb-theme');
+    if (saved === 'light' || (!saved && prefersLight)) document.documentElement.classList.add('light');
+    themeToggle?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light');
+      const isLight = document.documentElement.classList.contains('light');
+      localStorage.setItem('planb-theme', isLight ? 'light' : 'dark');
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+    });
+
+    // Copy contract address
+    function copyAddr(){
+      const el = document.getElementById('contract');
+      navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
+        const old = el.textContent;
+        el.textContent = 'Copied! ✅ ' + old;
+        setTimeout(()=>{ el.textContent = old; }, 1200);
+      });
+    }
+
+    // Demo KPIs (replace with live fetch)
+    const fmt = (n) => new Intl.NumberFormat('en-US',{notation:'compact', maximumFractionDigits:2}).format(n);
+    function mockStats(){
+      // Replace with fetch from DexScreener/GeckoTerminal or your API
+      const price = (Math.random()*0.0001).toFixed(6);
+      const mcap = 250000 + Math.random()*150000;
+      const vol = 15000 + Math.random()*30000;
+      const holders = 800 + Math.floor(Math.random()*400);
+      document.getElementById('kpiPrice').textContent = '$' + price;
+      document.getElementById('kpiMcap').textContent = '$' + fmt(mcap);
+      document.getElementById('kpiVol').textContent = '$' + fmt(vol);
+      document.getElementById('kpiHolders').textContent = fmt(holders);
+    }
+    mockStats(); setInterval(mockStats, 5000);
+
+    // Fun easter egg: press "B" and the bee celebrates
+    window.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase() === 'b'){
+        const bee = document.querySelector('.bee-svg');
+        if(!bee) return;
+        bee.animate([
+          { transform: 'translateY(0) rotate(0deg)' },
+          { transform: 'translate(-8px,-8px) rotate(-10deg)' },
+          { transform: 'translate(8px,-6px) rotate(10deg)' },
+          { transform: 'translateY(0) rotate(0deg)' },
+        ], { duration: 700, easing: 'ease-in-out' });
+      }
+    });
+  </script>
+</body>
+</html>
