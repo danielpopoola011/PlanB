@@ -4,142 +4,180 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PlanB</title>
-  <meta name="description" content="PlanB — a cute, community‑driven memecoin bringing vibes and honey. Join the hive." />
+  <meta name="description" content="PlanB — a cute, community-driven memecoin bringing vibes and honey. Join the hive." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Inter:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <style>
-    :root {
-      --honey: #FFC107;
-      --amber: #FF8A00;
-      --cream: #FFF7E6;
-      --ink: #141416;
-      --leaf: #26C281;
-      --sky: #5CC4FF;
-      --bg: #0f0f11;
-      --muted: #8b8d93;
-      --card: rgba(255,255,255,0.06);
-      --glass: rgba(255, 255, 255, 0.65);
+    :root{
+      --honey:#FFC107; --amber:#FF8A00; --cream:#FFF7E6;
+      --ink:#141416; --leaf:#26C281; --sky:#5CC4FF;
+      --bg:#0f0f11; --fg:#F2F3F6; --muted:#B1B3BA;
+      --card:rgba(255,255,255,0.06);
+      --glass:rgba(255,255,255,0.65);
+      --heading:var(--honey);
+      --border:rgba(255,255,255,.12);
     }
-    /* Light theme */
-    html.light {
-      --bg: rgb(255, 237, 200); 
-      --ink: #141416;
-      --card: rgba(20,20,22,0.06);
-      --glass: rgba(20,20,22,0.65);
+    html.light{
+      --bg:#fff7e6; --fg:#1b1c1f; --muted:#4d5058;
+      --card:rgba(20,20,22,0.06); --glass:rgba(20,20,22,0.65);
+      --heading:#8A5A2B;               /* warm brown headings in light */
+      --border:rgba(20,20,22,.12);
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; color: #fff; background: var(--bg);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      line-height: 1.45;
-    }
-    a { color: var(--sky); text-decoration: none; }
-    img { max-width: 100%; height: auto; }
-    .container { width: min(1200px, 92vw); margin: 0 auto; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      padding: .9rem 1.2rem; border-radius: 999px; border: 0; cursor: pointer;
-      font-weight: 700; background: linear-gradient(90deg, var(--honey), var(--amber)); color: #141416;
-      box-shadow: 0 10px 24px rgba(255,193,7,.25);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-    }
-    .btn:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 14px 30px rgba(255,193,7,.35); }
-    .btn.secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.15); box-shadow: none; }
-    .badge { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .7rem; border-radius: 999px; background: rgba(255,255,255,.08); font-size: .85rem; }
-    header.nav {
-      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.05)); border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0; }
-    .nav-links { display: none; gap: 1rem; }
-    .nav-links a { color: #fff; opacity: .85; }
-    .nav-actions { display: flex; align-items: center; gap: .6rem; }
-    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .3px; }
-    .brand span { font-family: "Baloo 2", cursive; font-size: 1.1rem; }
 
-    /* Honeycomb bg */
-    .bg-comb:before {
-      content: ""; position: fixed; inset: -10vh -10vw auto -10vw; height: 80vh; z-index: -1;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      line-height:1.45; transition:background .25s ease,color .25s ease;
+    }
+    a{color:var(--sky);text-decoration:none}
+    img{max-width:100%;height:auto}
+    .container{width:min(1200px,92vw);margin:0 auto}
+
+    /* NAV */
+    header.nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);
+      background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.05));
+      border-bottom:1px solid var(--border);
+    }
+    html.light header.nav{
+      background:linear-gradient(180deg, rgba(255,247,230,.85), rgba(255,247,230,.6));
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.3px}
+    .brand span{font-family:"Baloo 2",cursive;font-size:1.1rem;color:var(--fg)}
+    .nav-links{display:none;gap:1rem}
+    .nav-links a{color:var(--fg);opacity:.9}
+    .nav-actions{display:flex;align-items:center;gap:.6rem}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      padding:.85rem 1.2rem;border-radius:999px;border:0;cursor:pointer;
+      font-weight:700;background:linear-gradient(90deg,var(--honey),var(--amber));color:#141416;
+      box-shadow:0 10px 24px rgba(255,193,7,.25);
+      transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px) scale(1.01);box-shadow:0 14px 30px rgba(255,193,7,.35)}
+    .btn.secondary{
+      background:transparent;color:var(--fg);border:2px solid var(--border);box-shadow:none;
+    }
+
+    .badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border-radius:999px;background:rgba(255,255,255,.08);font-size:.85rem;color:var(--fg)}
+    html.light .badge{background:rgba(0,0,0,.06);}
+
+    /* Honeycomb dots */
+    .bg-comb:before{
+      content:"";position:fixed;inset:-10vh -10vw auto -10vw;height:80vh;z-index:-1;
       background-image:
         radial-gradient(circle at 25px 25px, rgba(255,193,7,.15) 2px, transparent 3px),
         radial-gradient(circle at 0 0, rgba(255,193,7,.1) 2px, transparent 3px);
-      background-size: 50px 50px;
-      filter: blur(0.3px) saturate(1.1);
-      opacity: .25; pointer-events: none;
-      transform: rotate(-3deg);
+      background-size:50px 50px; filter:blur(.3px) saturate(1.1); opacity:.25; pointer-events:none; transform:rotate(-3deg);
     }
 
-    /* Hero */
-    .hero { position: relative; padding: 6rem 0 4rem; }
-    .hero-grid { display: grid; gap: 2rem; grid-template-columns: 1.1fr .9fr; align-items: center; }
-    .kpi { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .75rem; margin-top: 1.2rem; }
-    .kpi .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: .8rem; text-align: center; }
-    .kpi .label { font-size: .8rem; opacity: .7; }
-    .kpi .value { font-weight: 800; font-family: "Space Mono", monospace; letter-spacing: .3px; }
-    .trust { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; opacity: .85; }
-    .hero h1 { font-family: "Baloo 2", cursive; font-size: clamp(2.2rem, 5vw, 4rem); margin: 0 0 .5rem; }
-    .hero p { color: #d9dae0; font-size: 1.05rem; max-width: 55ch; }
+    /* ===== HERO with background image + overlay ===== */
+    .hero{
+      position:relative; padding:6rem 0 4rem; overflow:hidden;
+      background-color:transparent; /* fallback */
+    }
+    .hero.has-bg::before{
+      content:""; position:absolute; inset:0;
+      background-image:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), var(--hero-url, url('images/hero-bg1.jpg'));
+      background-size:contain; background-position:center; background-repeat:no-repeat;background-size: 100% auto;
+      z-index:-1;
+    }
+    html.light .hero.has-bg::before{
+      background-image:linear-gradient(180deg, rgba(239, 227, 200, 0.75), rgba(248, 228, 184, 0.55)), var(--hero-url, url('images/hero-bg1.jpg'));
+      mix-blend-mode:multiply;
+    }
+    .hero-grid{display:grid;gap:2rem;grid-template-columns:1.1fr .9fr;align-items:center}
+    .kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin-top:1.2rem}
+    .kpi .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:.8rem;text-align:center}
+    .kpi .label{font-size:.8rem;color:var(--muted)}
+    .kpi .value{font-weight:800;font-family:"Space Mono",monospace;letter-spacing:.3px;color:var(--fg)}
+    .trust{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;opacity:.95}
+    .hero h1{font-family:"Baloo 2",cursive;font-size:clamp(2.4rem,5vw,4.1rem);margin:0 0 .5rem;color:var(--heading)}
+    .hero p{color:var(--fg);font-size:1.05rem;max-width:55ch}
 
     /* Bee card */
-    .bee-card { background: linear-gradient(135deg, rgba(255,193,7,.15), rgba(255,138,0,.08)); border: 1px solid rgba(255,193,7,.25); border-radius: 22px; padding: 1rem; position: relative; overflow: hidden; }
-    .bee-wrap { aspect-ratio: 1 / 1; display: grid; place-items: center; }
-    .bee-svg { width: 100%; max-width: 420px; }
-    .spark { position: absolute; inset: auto 10% 10% auto; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,193,7,.7), rgba(255,193,7,0)); filter: blur(18px); opacity: .6; }
+    .bee-card{background:linear-gradient(135deg, rgba(255,193,7,.15), rgba(255,138,0,.08));border:1px solid rgba(255,193,7,.25);border-radius:22px;padding:1rem;position:relative;overflow:hidden}
+    .bee-wrap{aspect-ratio:1/1;display:grid;place-items:center}
+    .bee-svg{width:100%;max-width:420px}
+    .spark{position:absolute;inset:auto 10% 10% auto;width:120px;height:120px;background:radial-gradient(circle, rgba(255,193,7,.7), rgba(255,193,7,0));filter:blur(18px);opacity:.6}
 
     /* Sections */
-    section { padding: 4rem 0; }
-    h2 { font-family: "Baloo 2", cursive; font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin: 0 0 1rem; }
-    .grid { display: grid; gap: 1rem; }
+    section{padding:4rem 0}
+    h2{font-family:"Baloo 2",cursive;font-size:clamp(1.6rem,3.4vw,2.2rem);margin:0 0 1rem;color:var(--heading)}
+    .grid{display:grid;gap:1rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;color:var(--fg)}
 
     /* Tokenomics */
-    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
-    .tok-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
-    .addr { font-family: "Space Mono", monospace; font-size: .92rem; word-break: break-all; }
+    .tok-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .addr{font-family:"Space Mono",monospace;font-size:.92rem;word-break:break-all;color:var(--fg)}
 
-    /* Roadmap */
-    .road { position: relative; }
-    .trail { position: absolute; left: 0; top: 2.2rem; right: 0; height: 4px; background: linear-gradient(90deg, rgba(255,193,7,.4), rgba(255,138,0,.2)); border-radius: 4px; }
-    .steps { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0,1fr)); position: relative; }
-    .step { position: relative; padding-top: 1.8rem; }
-    .step .dot { position: absolute; top: 0; left: .5rem; width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, var(--honey), var(--amber)); box-shadow: 0 0 0 4px rgba(255,193,7,.15); }
-    .step .title { font-weight: 800; }
-    .pill { display: inline-block; padding: .25rem .6rem; border-radius: 999px; font-size: .75rem; background: rgba(255,255,255,.1); }
+    /* Roadmap with background image */
+    .road{position:relative}
+    .road.has-bg::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background-image:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), var(--road-url, url('images/roadmap-bg.jpg'));
+      background-size:cover; background-position:center; background-repeat:no-repeat;
+      opacity:.9;
+    }
+    html.light .road.has-bg::before{
+      background-image:linear-gradient(180deg, rgba(255,247,230,.8), rgba(255,247,230,.6)), var(--road-url, url('images/roadmap-bg.jpg'));
+      mix-blend-mode:multiply;
+    }
+    .trail{position:absolute;left:0;top:2.2rem;right:0;height:4px;background:linear-gradient(90deg, rgba(255,193,7,.4), rgba(255,138,0,.2));border-radius:4px}
+    .steps{display:grid;gap:1rem;grid-template-columns:repeat(4,minmax(0,1fr));position:relative}
+    .step{position:relative;padding-top:1.8rem}
+    .step .dot{position:absolute;top:0;left:.5rem;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--honey),var(--amber));box-shadow:0 0 0 4px rgba(255,193,7,.15)}
+    .step .title{font-weight:800}
+    .pill{display:inline-block;padding:.25rem .6rem;border-radius:999px;font-size:.75rem;background:rgba(255,255,255,.12);color:var(--fg)}
+    html.light .pill{background:rgba(0,0,0,.06);}
+    .swiper-slide img {
+  transition: transform 1s ease;
+}
+.swiper-slide img {
+  height: 400px;          
+  width: max-content;            
+  object-fit: contain;   
+  padding-right: 10px;   
+  border-radius: 10px;    
+  transition: transform 0.4s ease;
+}
+
+.swiper-slide img:hover {
+  transform: scale(1.1); 
+}
+
+
 
     /* How to buy */
-    .steps-buy { grid-template-columns: repeat(4, minmax(0,1fr)); }
-    .num { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; font-weight: 800; color: #141416; background: linear-gradient(135deg, var(--honey), var(--amber)); box-shadow: 0 6px 16px rgba(255,193,7,.3); }
-
-    /* FAQ */
-    details { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: .8rem 1rem; }
-    summary { cursor: pointer; font-weight: 700; }
-
-    /* Footer */
-    footer { padding: 3rem 0; border-top: 1px solid rgba(255,255,255,.08); color: #c9cad0; }
-
+    .steps-buy{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .num{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;font-weight:800;color:#141416;background:linear-gradient(135deg,var(--honey),var(--amber));box-shadow:0 6px 16px rgba(255,193,7,.3)}
     /* Responsive */
-    @media (max-width: 980px) {
-      .hero { padding-top: 4.5rem; }
-      .hero-grid { grid-template-columns: 1fr; }
-      .kpi { grid-template-columns: repeat(2, 1fr); }
-      .tok-grid, .steps, .steps-buy { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .nav-links { display: none; }
+    @media (max-width:980px){
+      .hero{padding-top:4.5rem}
+      .hero-grid{grid-template-columns:1fr}
+      .kpi{grid-template-columns:repeat(2,1fr)}
+      .tok-grid,.steps,.steps-buy{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .nav-links{display:none}
     }
-    @media (max-width: 540px) {
-      .kpi { grid-template-columns: 1fr 1fr; }
-      .tok-grid, .steps, .steps-buy { grid-template-columns: 1fr; }
+    @media (max-width:540px){
+      .kpi{grid-template-columns:1fr 1fr}
+      .tok-grid,.steps,.steps-buy{grid-template-columns:1fr}
     }
 
     /* Motion */
-    @keyframes floaty { from { transform: translateY(0px); } 50% { transform: translateY(-8px); } to { transform: translateY(0px); } }
-    @keyframes waggle { 0% { transform: rotate(0); } 25% { transform: rotate(-6deg);} 50% { transform: rotate(6deg);} 100% { transform: rotate(0);} }
-    .bee-float { animation: floaty 5s ease-in-out infinite; }
-    .bee-waggle:hover { animation: waggle .7s ease-in-out; transform-origin: 50% 50%; }
-
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
-    }
+    @keyframes floaty{from{transform:translateY(0)}50%{transform:translateY(-8px)}to{transform:translateY(0)}}
+    @keyframes waggle{0%{transform:rotate(0)}25%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}100%{transform:rotate(0)}}
+    .bee-float{animation:floaty 5s ease-in-out infinite}
+    .bee-waggle:hover{animation:waggle .7s ease-in-out;transform-origin:50% 50%}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   </style>
 </head>
 <body class="bg-comb">
@@ -147,16 +185,8 @@
     <div class="container nav-inner">
       <div class="brand">
         <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0%" stop-color="#FFC107" />
-              <stop offset="100%" stop-color="#FF8A00" />
-            </linearGradient>
-          </defs>
-          <circle cx="32" cy="32" r="28" fill="url(#g1)"/>
-          <circle cx="24" cy="28" r="6" fill="#141416"/>
-          <circle cx="40" cy="28" r="6" fill="#141416"/>
-          <rect x="18" y="36" width="28" height="8" rx="4" fill="#141416"/>
+          <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="#FFC107"/><stop offset="100%" stop-color="#FF8A00"/></linearGradient></defs>
+          <circle cx="32" cy="32" r="28" fill="url(#g1)"/><circle cx="24" cy="28" r="6" fill="#141416"/><circle cx="40" cy="28" r="6" fill="#141416"/><rect x="18" y="36" width="28" height="8" rx="4" fill="#141416"/>
         </svg>
         <span>PlanB</span>
         <span class="badge" title="All vibes & honey">🍯 vibes</span>
@@ -176,16 +206,14 @@
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero" id="home">
+    <!-- HERO (now with background image) -->
+    <section class="hero has-bg" id="home" style="--hero-url:url('images/hero-bg1.jpg')">
       <div class="container hero-grid">
         <div>
-          <h1>Bee the Backup. <span style="background:linear-gradient(90deg,var(--honey),var(--amber)); -webkit-background-clip:text; background-clip:text; color:transparent;">PlanB</span> brings the honey.</h1>
-          <p>
-            Cute meme. Real community. Transparent tokenomics. When Plan A dumps, the hive delivers. 🍯
-          </p>
-          <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;">
-            <a class="btn" href="#https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Buy $PLANB</a>
+          <h1>Bee the Backup. <span style="background:linear-gradient(90deg,var(--honey),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent;">PlanB</span> brings the honey.</h1>
+          <p>Cute meme. Real community. Transparent tokenomics. When Plan A dumps, the hive delivers.</p>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem;">
+            <a class="btn" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Buy $PLANB</a>
             <a class="btn secondary" href="#community">Join the Hive</a>
             <a class="btn secondary" href="#chart" onclick="alert('Hook your chart link here (DexScreener/GeckoTerminal).')">View Chart</a>
           </div>
@@ -207,45 +235,73 @@
             <!-- Inline SVG mascot -->
             <svg class="bee-svg bee-float bee-waggle" viewBox="0 0 300 300" role="img" aria-label="PlanB mascot">
               <defs>
-                <linearGradient id="nectar" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#FFC107" />
-                  <stop offset="100%" stop-color="#FF8A00" />
-                </linearGradient>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
+                <linearGradient id="nectar" x1="0" x2="1"><stop offset="0%" stop-color="#FFC107"/><stop offset="100%" stop-color="#FF8A00"/></linearGradient>
+                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
               </defs>
               <circle cx="150" cy="150" r="110" fill="url(#nectar)" opacity="0.15" />
-              <!-- Body -->
               <ellipse cx="150" cy="150" rx="90" ry="70" fill="#222" filter="url(#glow)"/>
-              <g>
-                <ellipse cx="150" cy="150" rx="88" ry="68" fill="url(#nectar)"/>
-                <rect x="90" y="120" width="120" height="60" fill="#141416"/>
-                <rect x="90" y="150" width="120" height="18" fill="#141416" opacity=".9"/>
-              </g>
-              <!-- Eyes -->
-              <circle cx="120" cy="140" r="12" fill="#141416"/>
-              <circle cx="180" cy="140" r="12" fill="#141416"/>
-              <circle cx="116" cy="136" r="4" fill="#fff"/>
-              <circle cx="176" cy="136" r="4" fill="#fff"/>
-              <!-- Wings -->
-              <g opacity=".85">
-                <ellipse cx="210" cy="95" rx="35" ry="22" fill="#EAF7FF"/>
-                <ellipse cx="95" cy="95" rx="35" ry="22" fill="#EAF7FF"/>
-              </g>
-              <!-- Stinger -->
-              <path d="M 240 160 L 270 150 L 240 140 Z" fill="#141416"/>
-              <!-- Smile -->
-              <path d="M120 175 Q150 190 180 175" stroke="#141416" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <g><ellipse cx="150" cy="150" rx="88" ry="68" fill="url(#nectar)"/><rect x="90" y="120" width="120" height="60" fill="#141416"/><rect x="90" y="150" width="120" height="18" fill="#141416" opacity=".9"/></g>
+              <circle cx="120" cy="140" r="12" fill="#141416"/><circle cx="180" cy="140" r="12" fill="#141416"/>
+              <circle cx="116" cy="136" r="4" fill="#fff"/><circle cx="176" cy="136" r="4" fill="#fff"/>
+              <g opacity=".85"><ellipse cx="210" cy="95" rx="35" ry="22" fill="#EAF7FF"/><ellipse cx="95" cy="95" rx="35" ry="22" fill="#EAF7FF"/></g>
+              <path d="M 240 160 L 270 150 L 240 140 Z" fill="#141416"/><path d="M120 175 Q150 190 180 175" stroke="#141416" stroke-width="6" fill="none" stroke-linecap="round"/>
             </svg>
           </div>
         </div>
       </div>
     </section>
+
+<section class="gallery-section relative py-16">
+  <h2 class="text-4xl font-bold text-center text-yellow-600 mb-8">
+    Bee-utiful Gallery🐝
+  </h2>
+
+  <!-- Swiper -->
+  <div class="swiper mySwiper max-w-5xl mx-auto">
+    <div class="swiper-wrapper">
+      
+      <!-- Slides -->
+      <div class="swiper-slide">
+        <img src="images/art-1.jpg" class="rounded-xl max-h-50 object-contain" />
+      </div>
+      <div class="swiper-slide">
+        <img src="images/art-2.jpg" class="rounded-xl max-h-50 object-contain" />
+      </div>
+      <div class="swiper-slide">
+        <img src="images/art-3.jpg" class="rounded-xl max-h-50 object-contain" />
+      </div>
+      <div class="swiper-slide">
+        <img src="images/gym-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/ely-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/market-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/moonsheep-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/never-a-plana.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/penguru-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/super-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/roller-coaster-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+      <div class="swiper-slide">
+        <img src="images/poker-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
+      </div>
+    </div>
+
+    <!-- Pagination (dots) -->
+    <div class="swiper-pagination"></div>
+</section>
 
     <!-- ABOUT -->
     <section id="about">
@@ -253,19 +309,19 @@
         <h2>What is PlanB?</h2>
         <div class="grid" style="grid-template-columns: 1.2fr .8fr; align-items: center;">
           <div class="card">
-            <p><strong>PlanB</strong> is all vibes and honey 🍯,  a cute community first memecoin where the fun is real and the mission is sweet: games, merch, real honey, and saving the bees. Built to be simple, transparent, and buzz‑worthy.</p>
+            <p><strong>PlanB</strong> is all vibes and honey, a cute community-first memecoin where the fun is real and the mission is sweet: games, merch, real honey, and saving the bees. Built to be simple, transparent, and buzz-worthy.</p>
             <ul>
               <li>🐝 Playful brand with a trustworthy backbone</li>
               <li>🍯 Honey game + community contests</li>
-              <li>🛍️ Merch drops + real honey tie ins</li>
-              <li>🌍 Bee‑friendly initiatives & education</li>
+              <li>🛍️ Merch drops + real honey tie-ins</li>
+              <li>🌍 Bee-friendly initiatives & education</li>
             </ul>
           </div>
           <div class="card">
-            <h3 style="margin-top:0">Quick Links</h3>
+            <h3 style="margin-top:0;color:var(--heading)">Quick Links</h3>
             <div class="grid" style="grid-template-columns: 1fr 1fr; gap:.6rem;">
               <a class="btn" href="#tokenomics">Tokenomics</a>
-              <a class="btn secondary" href="#gallery">gallery</a>
+              <a class="btn secondary" href="#gallery">Gallery</a>
               <a class="btn secondary" href="#roadmap">Roadmap</a>
               <a class="btn secondary" href="#buy">How to Buy</a>
               <a class="btn secondary" href="#faq">FAQ</a>
@@ -280,11 +336,11 @@
       <div class="container">
         <h2>Tokenomics</h2>
         <div class="grid tok-grid">
-          <div class="card"><div class="label">Total Supply</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;">TBD</div></div>
-          <div class="card"><div class="label">Taxes</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;">TBD</div></div>
-          <div class="card"><div class="label">Allocation</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;">Community % • LP % • Marketing % • Team %</div></div>
+          <div class="card"><div class="label" style="color:var(--muted)">Total Supply</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;color:var(--fg)">TBD</div></div>
+          <div class="card"><div class="label" style="color:var(--muted)">Taxes</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;color:var(--fg)">TBD</div></div>
+          <div class="card"><div class="label" style="color:var(--muted)">Allocation</div><div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem;color:var(--fg)">Community % • LP % • Marketing % • Team %</div></div>
           <div class="card">
-            <div class="label">Contract Address</div>
+            <div class="label" style="color:var(--muted)">Contract Address</div>
             <div class="addr" id="contract">0x9301d2debE3C501a4BeF6Ba5b273B7bD346fa57E</div>
             <div style="display:flex; gap:.5rem; margin-top:.5rem;">
               <button class="btn" onclick="copyAddr()">Copy</button>
@@ -292,53 +348,54 @@
             </div>
           </div>
         </div>
-        <p style="opacity:.85; margin-top:1rem;">Note: Ownership status / renounced info / audit link can be placed here with icons.</p>
+        <p style="opacity:.9; margin-top:1rem;color:var(--muted)">Note: Ownership status / renounced info / audit link can be placed here with icons.</p>
       </div>
     </section>
 
-    <!-- ROADMAP -->
+    <!-- ROADMAP (with background image) -->
     <section id="roadmap">
-      <div class="container road">
+      <div class="container road has-bg" style="--road-url:url('images/roadmap-bg.jpg')">
         <h2>Roadmap</h2>
         <div class="trail" aria-hidden="true"></div>
         <div class="steps">
           <div class="card step">
             <div class="dot" aria-hidden="true"></div>
-            <div class="title">Phase 1  Hive Setup</div>
+            <div class="title">Phase 1 — Hive Setup</div>
             <p>Launch site & socials, liquidity, first memes, community seeding.</p>
             <span class="pill">In flight</span>
           </div>
           <div class="card step">
             <div class="dot" aria-hidden="true"></div>
-            <div class="title">Phase 2  Honey Game</div>
-            <p>Casual web mini‑game with bee collectibles & leaderboard contests.</p>
+            <div class="title">Phase 2 — Honey Game</div>
+            <p>Casual web mini-game with bee collectibles & leaderboard contests.</p>
             <span class="pill">Next</span>
           </div>
           <div class="card step">
             <div class="dot" aria-hidden="true"></div>
-            <div class="title">Phase 3  Merch & Real Honey</div>
+            <div class="title">Phase 3 — Merch & Real Honey</div>
             <p>Merch drops + limited jars of real honey supporting local beekeepers.</p>
             <span class="pill">Planned</span>
           </div>
           <div class="card step">
             <div class="dot" aria-hidden="true"></div>
-            <div class="title">Phase 4  Save the Bees</div>
-            <p>Donations, education content, and collabs with bee orgs. Cross‑chain listings.</p>
+            <div class="title">Phase 4 — Save the Bees</div>
+            <p>Donations, education content, and collabs with bee orgs. Cross-chain listings.</p>
             <span class="pill">Planned</span>
           </div>
         </div>
       </div>
     </section>
+    
 
     <!-- HOW TO BUY -->
     <section id="buy">
       <div class="container">
         <h2>How to Buy</h2>
         <div class="grid steps-buy">
-          <div class="card"><div class="num">1</div><h3>Wallet</h3><p>Install a wallet (e.g., Rabby / MetaMask) and fund it with the chain’s native token.</p></div>
-          <div class="card"><div class="num">2</div><h3>Connect</h3><p>Switch to <strong>Abstract</strong> (or your chain) and connect your wallet.</p></div>
-          <div class="card"><div class="num">3</div><h3>Swap</h3><p>Use your preferred DEX. Paste the contract, select $PLANB, confirm slippage/tax.</p></div>
-          <div class="card"><div class="num">4</div><h3>Join the Hive</h3><p>Follow X/Telegram, join contests, and spread the buzz.</p></div>
+          <div class="card"><div class="num">1</div><h3 style="margin:.6rem 0;color:var(--heading)">Wallet</h3><p>Install a wallet (e.g., Rabby / MetaMask) and fund it with the chain’s native token.</p></div>
+          <div class="card"><div class="num">2</div><h3 style="margin:.6rem 0;color:var(--heading)">Connect</h3><p>Switch to <strong>Abstract</strong> (or your chain) and connect your wallet.</p></div>
+          <div class="card"><div class="num">3</div><h3 style="margin:.6rem 0;color:var(--heading)">Swap</h3><p>Use your preferred DEX. Paste the contract, select $PLANB, confirm slippage/tax.</p></div>
+          <div class="card"><div class="num">4</div><h3 style="margin:.6rem 0;color:var(--heading)">Join the Hive</h3><p>Follow X/Telegram, join contests, and spread the buzz.</p></div>
         </div>
         <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;">
           <a class="btn" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Open DEX</a>
@@ -347,28 +404,16 @@
       </div>
     </section>
 
-    <!-- COMMUNITY / SOCIALS -->
+    <!-- COMMUNITY -->
     <section id="community">
       <div class="container">
         <h2>Community</h2>
         <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
           <a class="card" href="https://x.com/_PlanBee_" target="_blank" rel="noreferrer">🐦 Follow on X</a>
           <a class="card" href="https://t.me/PlanBeePortal" target="_blank" rel="noreferrer">💬 Telegram</a>
+          <a class="card" href="#" target="_blank" rel="noreferrer">📸 Instagram</a>
         </div>
-        <p style="opacity:.9; margin-top:1rem;">Shoutouts, memes, and fan art will appear here in a carousel or embedded timeline.</p>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="container">
-        <h2>FAQ</h2>
-        <div class="grid" style="grid-template-columns: 1fr 1fr;">
-          <details><summary>Is PlanB audited?</summary><p>Audit planned / link goes here. Always DYOR.</p></details>
-          <details><summary>Where can I buy $PLANB?</summary><p>DEX link + step‑by‑step above. CEX listings will be announced.</p></details>
-          <details><summary>What’s the mission?</summary><p>Fun first  but with impact. Honey game, merch, real honey, and saving the bees.</p></details>
-          <details><summary>Contract & taxes?</summary><p>Final numbers posted in Tokenomics and pinned on socials.</p></details>
-        </div>
+        <p style="opacity:.9; margin-top:1rem;color:var(--muted)">Shoutouts, memes, and fan art can rotate above in the art band. Submit yours!</p>
       </div>
     </section>
   </main>
@@ -387,10 +432,10 @@
   </footer>
 
   <script>
-    // Theme toggle (persists)
+    // Theme toggle (persists) — switches ALL font colors via CSS variables
     const themeToggle = document.getElementById('themeToggle');
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     const saved = localStorage.getItem('planb-theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     if (saved === 'light' || (!saved && prefersLight)) document.documentElement.classList.add('light');
     themeToggle?.addEventListener('click', () => {
       document.documentElement.classList.toggle('light');
@@ -412,7 +457,6 @@
     // Demo KPIs (replace with live fetch)
     const fmt = (n) => new Intl.NumberFormat('en-US',{notation:'compact', maximumFractionDigits:2}).format(n);
     function mockStats(){
-      // Replace with fetch from DexScreener/GeckoTerminal or your API
       const price = (Math.random()*0.0001).toFixed(6);
       const mcap = 250000 + Math.random()*150000;
       const vol = 15000 + Math.random()*30000;
@@ -424,7 +468,24 @@
     }
     mockStats(); setInterval(mockStats, 5000);
 
-    // Fun easter egg: press "B" and the bee celebrates
+    // Rotating background for the art band
+    const artBand = document.querySelector('.artband');
+    const artImgs = ['images/art-1.jpg','images/art-2.jpg','images/art-3.jpg']; // add your art here
+    let ai = 0;
+    setInterval(()=>{
+      ai = (ai+1)%artImgs.length;
+      const url = artImgs[ai];
+      // use same overlay per theme; background-image includes overlay set in CSS via light/dark rules
+      if (document.documentElement.classList.contains('light')) {
+        artBand.style.backgroundImage = `linear-gradient(180deg, rgba(255,247,230,.8), rgba(255,247,230,.6)), url('${url}')`;
+      } else {
+        artBand.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.4)), url('${url}')`;
+      }
+      artBand.style.backgroundSize = 'contain';
+      artBand.style.backgroundPosition = 'center';
+    }, 4000);
+
+    // Easter egg: press "B"
     window.addEventListener('keydown', (e)=>{
       if(e.key.toLowerCase() === 'b'){
         const bee = document.querySelector('.bee-svg');
@@ -437,6 +498,31 @@
         ], { duration: 700, easing: 'ease-in-out' });
       }
     });
+    
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopBtn.style.display = "block";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  };
   </script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    loop: true,
+    slidesPerView: 3, // show multiple at once
+    spaceBetween: 1,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+    },
+    speed: 3500, // slow continuous speed
+    freeMode: true,
+    freeModeMomentum: false,
+    
+  });
+</script>
+
 </body>
 </html>
