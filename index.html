@@ -2,213 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PlanB</title>
-  <meta name="description" content="PlanB — a cute, community-driven memecoin bringing vibes and honey. Join the hive." />
+  <meta name="description" content="PlanB — a cute, community-driven memecoin bringing vibes and honey. Join the hive.">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Inter:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Inter:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
   <style>
-    
-  :root {
-    --honey:#FFC107; --amber:#FF8A00; --cream:#FFF7E6;
-    --ink:#141416; --leaf:#26C281; --sky:#5CC4FF;
-    --bg:#0f0f11; --fg:#F2F3F6; --muted:#B1B3BA;
-    --card:rgba(255,255,255,0.06);
-    --glass:rgba(255,255,255,0.65);
-    --heading:var(--honey);
-    --border:rgba(255,255,255,.12);
+    /* ========= THEME TOKENS ========= */
+    :root{
+      --honey:#FFC107; --amber:#FF8A00; --cream:#FFF7E6;
+      --ink:#141416; --leaf:#26C281; --sky:#5CC4FF;
+      --bg:#0f0f11; --fg:#F2F3F6; --muted:#B1B3BA;
+      --card:rgba(255,255,255,0.06);
+      --glass:rgba(255,255,255,0.65);
+      --heading:var(--honey);
+      --border:rgba(255,255,255,.12);
+    }
+    html.light{
+      --bg:#fff7e6; --fg:#1b1c1f; --muted:#4d5058;
+      --card:rgba(20,20,22,0.06); --glass:rgba(20,20,22,0.65);
+      --heading:#8A5A2B;
+      --border:rgba(20,20,22,.12);
+    }
 
+    /* ========= BASE ========= */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:"DynaPuff", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font-weight:600;
+      font-size:18px; /* sane base; we scale headings with clamp() */
+      line-height:1.45;
+      transition:background .25s ease,color .25s ease;
+    }
+    a{color:var(--sky);text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+    .container{width:min(1200px,92vw);margin:0 auto}
 
-  }
-  html.light {
-    --bg:#fff7e6; --fg:#1b1c1f; --muted:#4d5058;
-    --card:rgba(20,20,22,0.06); --glass:rgba(20,20,22,0.65);
-    --heading:#8A5A2B;
-    --border:rgba(20,20,22,.12);
-  }
+    /* ========= HONEYCOMB BACKDROP ========= */
+    .bg-comb:before{
+      content:"";position:fixed;inset:-10vh -10vw auto -10vw;height:80vh;z-index:-1;
+      background-image:
+        radial-gradient(circle at 25px 25px, rgba(255,193,7,.15) 2px, transparent 3px),
+        radial-gradient(circle at 0 0, rgba(255,193,7,.1) 2px, transparent 3px);
+      background-size:50px 50px; filter:blur(.3px) saturate(1.1); opacity:.25; pointer-events:none; transform:rotate(-3deg);
+    }
 
-  * { box-sizing:border-box }
-  html,body { height:100% }
-  body {
-    margin:0; background:var(--bg); color:var(--fg);
-        
-  font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 600;
-   font-size: 40px;
-  font-variation-settings:
-    "wdth" 100;
-    line-height:1.45;
-    transition:background .25s ease,color .25s ease;;color:var(--heading)
-  }
-  a { color:var(--sky); text-decoration:none }
-  img { max-width:100%; height:auto }
-  .container { width:min(1200px,86vw); margin:0 auto }
-  .container-prt { width:min(900px,16.5vw); margin:0 auto }
-  .badge{
-    padding: 1px;
-  }
+    /* ========= NAV ========= */
+    header.nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);
+      background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.05));
+      border-bottom:1px solid var(--border);
+    }
+    html.light header.nav{
+      background:linear-gradient(180deg, rgba(255,247,230,.85), rgba(255,247,230,.6));
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.3px}
+    .brand span{font-size:clamp(1.1rem,3.5vw,2rem);color:var(--fg)}
+    .badge{display:inline-flex;align-items:center;padding:.2rem .5rem;border-radius:999px;background:rgba(255,255,255,.08);font-size:.9rem;color:var(--fg)}
+    html.light .badge{background:rgba(0,0,0,.06);}
+    .nav-actions{display:flex;align-items:center;gap:.6rem}
 
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      padding:.85rem 1.2rem;border-radius:999px;border:0;cursor:pointer;
+      font-weight:700;background:linear-gradient(90deg,var(--honey),var(--amber));color:#141416;
+      box-shadow:0 10px 24px rgba(255,193,7,.25);
+      transition:transform .18s ease,box-shadow .18s ease;
+      font-family:"DynaPuff",system-ui;
+      font-size:clamp(.95rem,2.5vw,1.25rem);
+    }
+    .btn:hover{transform:translateY(-1px) scale(1.01);box-shadow:0 14px 30px rgba(255,193,7,.35)}
+    .btn.secondary{
+      background:transparent;color:var(--fg);border:2px solid var(--border);box-shadow:none;
+    }
 
-  /* NAV */
-  header.nav {
-    position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);
-    background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.05));
-    border-bottom:1px solid var(--border);
-  }
-  html.light header.nav {
-    background:linear-gradient(180deg, rgba(255,247,230,.85), rgba(255,247,230,.6));
-  }
-  .nav-inner {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:.75rem 0;
-     font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-size: 30px;
-  font-variation-settings:
-  "wdth" 100;
-  }
-  .brand { display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px }
-  .brand span {   
-  font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-size: 40px;
-  font-variation-settings:
-  "wdth" 100;
-  }
-  .nav-links { display:flex; gap:1rem }
-  .nav-links a { color:var(--fg); opacity:.9 }
-  .nav-actions { display:flex; align-items:center; gap:.6rem }
+    /* ========= HERO ========= */
+    .hero{position:relative;padding:clamp(3rem,6vw,6rem) 0 4rem;overflow:hidden;}
+    .hero.has-bg::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background-image:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), var(--hero-url, url('images/hero-bg1.jpg'));
+      background-size:cover; background-position:center;
+    }
+    html.light .hero.has-bg::before{
+      background-image:linear-gradient(180deg, rgba(239, 227, 200, 0.75), rgba(248, 228, 184, 0.55)), var(--hero-url, url('images/hero-bg1.jpg'));
+      mix-blend-mode:multiply;
+    }
+    .hero-grid{display:grid;gap:2rem;grid-template-columns:1.1fr .9fr;align-items:center}
+    .hero h1{
+      font-size:clamp(2rem,6vw,4.5rem);
+      margin:0 0 .5rem;color:var(--heading)
+    }
+    .hero p{
+      font-size:clamp(1rem,2.5vw,1.6rem);
+      max-width:60ch;color:var(--fg)
+    }
+    .kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin-top:1.2rem}
+    .kpi .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:.8rem;text-align:center}
+    .kpi .label{font-size:.9rem;color:var(--muted)}
+    .kpi .value{font-weight:800;font-family:"Space Mono",monospace;letter-spacing:.3px;color:var(--fg);font-size:1.1rem}
+    .trust{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;opacity:.95}
 
-  .btn {
-    display:flex; align-items:center; justify-content:center; gap:.5rem;
-    padding:.85rem 1.2rem; border-radius:999px; border:0; cursor:pointer;
-    font-weight:700; background:linear-gradient(90deg,var(--honey),var(--amber));
-    color:#141416; box-shadow:0 10px 24px rgba(255,193,7,.25);
-    transition:transform .18s ease,box-shadow .18s ease;
-        font-family: "DynaPuff", system-ui;
-        font-optical-sizing: auto;
-        font-weight: 600;
-        font-size: 30px;
-        font-variation-settings:
-        "wdth" 100;
-  }
-  .btn:hover { transform:translateY(-1px) scale(1.01); box-shadow:0 14px 30px rgba(255,193,7,.35) }
-  .btn.secondary { background:transparent; color:var(--fg); border:2px solid var(--border); box-shadow:none }
+    /* Bee card */
+    .bee-card{background:linear-gradient(135deg, rgba(255,193,7,.15), rgba(255,138,0,.08));border:1px solid rgba(255,193,7,.25);border-radius:22px;padding:1rem;position:relative;overflow:hidden}
+    .bee-wrap{aspect-ratio:1/1;display:grid;place-items:center}
+    .bee-svg{width:100%;max-width:420px}
+    .spark{position:absolute;inset:auto 10% 10% auto;width:120px;height:120px;background:radial-gradient(circle, rgba(255,193,7,.7), rgba(255,193,7,0));filter:blur(18px);opacity:.6}
 
-  /* HERO */
-  .hero {
-    position:relative; padding:6rem 0 4rem; overflow:hidden;
-          
-       font-family: "DynaPuff", system-ui;
-       font-optical-sizing: auto;
-       font-weight: 600;
-       font-size: 29px;
-       font-variation-settings:
-       "wdth" 100;
-}
+    /* ========= GALLERY ========= */
+    section{padding:4rem 0}
+    h2{font-size:clamp(1.8rem,4vw,4.25rem);margin:0 0 1rem;color:var(--heading)}
+    .swiper{padding-bottom:2.5rem}
+    .swiper-slide img{width:100%;height:220px;object-fit:cover;border-radius:12px;transition:transform .4s ease}
+    .swiper-slide img:hover{transform:scale(1.03)}
+    @media (min-width:768px){ .swiper-slide img{ height:300px } }
+    @media (min-width:1024px){ .swiper-slide img{ height:400px } }
 
-  .hero.has-bg::before {
-    content:""; position:absolute; inset:0; z-index:-1;
-    background-image:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), var(--hero-url, url('images/hero-bg1.jpg'));
-    background-size:cover; background-position:center;
-  }
-  html.light .hero.has-bg::before {
-    background-image:linear-gradient(180deg, rgba(239, 227, 200, 0.75), rgba(248, 228, 184, 0.55)), var(--hero-url, url('images/hero-bg1.jpg'));
-    mix-blend-mode:multiply;
-  }
-  .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center }
-  .hero h1 {  font-family: "DynaPuff", system-ui;
-              font-optical-sizing: auto;
-              font-weight: 600;
-              font-size: 75px;
-              font-variation-settings:
-    "wdth" 100;; color:var(--heading) }
-  .hero p {  font-family: "DynaPuff", system-ui;
-            font-optical-sizing: auto;
-            font-weight: 600;
-            font-size: 33px;
-            font-variation-settings:
-            "wdth" 100;; max-width:55ch }
+    /* ========= CARDS / GRID ========= */
+    .grid{display:grid;gap:1rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;color:var(--fg)}
+    .label{color:var(--muted)}
+    .value{color:var(--fg)}
+    .addr{font-family:"Space Mono",monospace;font-size:1rem;word-break:break-word;color:var(--fg)}
 
-  /* Gallery / Carousel */
-  .swiper-slide img {
-    width:100%; height:220px; object-fit:cover;
-    border-radius:10px;
-    transition:transform .4s ease;
-  }
-  .swiper-slide img:hover { transform:scale(1.05) }
-  @media (min-width:768px) { .swiper-slide img { height:300px } }
-  @media (min-width:1024px) { .swiper-slide img { height:400px } }
+    /* ========= ABOUT (fix stacking on phones) ========= */
+    .about-grid{grid-template-columns: 1.2fr .8fr; align-items:center}
+    @media (max-width: 768px){
+      .about-grid{grid-template-columns:1fr}
+    }
 
-  /* Sections */
-  section { padding:4rem 0 }
-  h2 {    
+    /* ========= TOKENOMICS ========= */
+    .tok-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media (max-width:980px){
+      .tok-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width:540px){
+      .tok-grid{grid-template-columns:1fr}
+    }
 
-  font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 600;
- font-size: 68px;
-  font-variation-settings:
-    "wdth" 100;
-} 
-  .grid { display:grid; gap:1rem }
-  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1rem }
+    /* ========= ROADMAP ========= */
+    .road{position:relative}
+    .road.has-bg::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background-image:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), var(--road-url, url('images/roadmap-bg.jpg'));
+      background-size:cover; background-position:center; opacity:.9;
+    }
+    html.light .road.has-bg::before{
+      background-image:linear-gradient(180deg, rgba(255,247,230,.8), rgba(255,247,230,.6)), var(--road-url, url('images/roadmap-bg.jpg'));
+      mix-blend-mode:multiply;
+    }
+    .trail{position:absolute;left:0;top:2.2rem;right:0;height:4px;background:linear-gradient(90deg, rgba(255,193,7,.4), rgba(255,138,0,.2));border-radius:4px}
+    .steps{display:grid;gap:1rem;grid-template-columns:repeat(4,minmax(0,1fr));position:relative}
+    .step{position:relative;padding-top:1.8rem}
+    .step .dot{position:absolute;top:0;left:.5rem;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--honey),var(--amber));box-shadow:0 0 0 4px rgba(255,193,7,.15)}
+    .step .title{font-weight:800}
+    .pill{display:inline-block;padding:.25rem .6rem;border-radius:999px;font-size:.85rem;background:rgba(255,255,255,.12);color:var(--fg)}
+    html.light .pill{background:rgba(0,0,0,.06);}
 
-  /* Fix "What is PlanB" + "Quick Links" on mobile */
-  .about-container {
-    display:flex; gap:2rem;
-  }
-  .about-container > div { flex:1 }
-  @media (max-width:768px) {
-    .about-container { flex-direction:column; text-align:center; }
-    .about-container > div { width:100%; margin-bottom:20px }
+    /* ========= BUY ========= */
+    .steps-buy{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .num{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;font-weight:800;color:#141416;background:linear-gradient(135deg,var(--honey),var(--amber));box-shadow:0 6px 16px rgba(255,193,7,.3)}
 
-  }
+    /* ========= COMMUNITY ========= */
+    .container-prt{width:min(900px,92vw);margin:0 auto}
 
-  /* Responsive Adjustments */
-  @media (max-width:980px) {
-    .hero-grid { grid-template-columns:1fr }
-    .nav-links { display:none }
-  }
-/* Tablets */
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2rem;
-  }
-  .info-section {
-    gap: 1rem;
-  }
-}
+    /* ========= RESPONSIVE LAYOUT ========= */
+    @media (max-width:980px){
+      .hero{padding-top:4.5rem}
+      .hero-grid{grid-template-columns:1fr}
+      .kpi{grid-template-columns:repeat(2,1fr)}
+      .steps,.steps-buy{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media (max-width:768px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero{ text-align:center }
+      .trust{ justify-content:center }
+    }
+    @media (max-width:540px){
+      .kpi,.steps,.steps-buy{grid-template-columns:1fr}
+    }
 
-/* Phones min width 320px */
-@media (max-width: 600px) {
-  .info-section {
-    flex-direction: column; /* Stack vertically */
-  }
-  .info-section .block {
-    width: 100%;
-  }
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-  #about{
-    display: list-item;
-  }
-}
-</style>
-
+    /* ========= MOTION ========= */
+    @keyframes floaty{from{transform:translateY(0)}50%{transform:translateY(-8px)}to{transform:translateY(0)}}
+    @keyframes waggle{0%{transform:rotate(0)}25%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}100%{transform:rotate(0)}}
+    .bee-float{animation:floaty 5s ease-in-out infinite}
+    .bee-waggle:hover{animation:waggle .7s ease-in-out;transform-origin:50% 50%}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
 </head>
+
 <body class="bg-comb">
+  <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
       <div class="brand">
@@ -227,7 +218,7 @@
   </header>
 
   <main>
-    <!-- HERO (now with background image) -->
+<!-- HERO -->
     <section class="hero has-bg" id="home" style="--hero-url:url('images/hero-bg1.jpg')">
       <div class="container hero-grid">
         <div>
@@ -236,7 +227,7 @@
           <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem;">
             <a class="btn" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642">Buy $PLANB</a>
             <a class="btn secondary" href="#community">Join the Hive</a>
-            <a class="btn secondary" href="#chart" onclick="alert('Hook your chart link here (DexScreener/GeckoTerminal).')">View Chart</a>
+            <a class="btn secondary" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642" onclick="alert( 'Ready to leave this site?')">View Chart</a>
           </div>
           <div class="kpi" aria-label="Live stats">
             <div class="card"><div class="label">Price</div><div class="value" id="kpiPrice">$—</div></div>
@@ -247,13 +238,12 @@
           <div class="trust">
             <span class="badge">✅ Audited (link)</span>
             <span class="badge">🔒 LP Locked</span>
-            <span class="badge"><img src="Abs-logo.jpg" style="width: 30px; height: 30px; display: inline-flex;"> Chain</span>
+            <span class="badge"><img src="Abs-logo.jpg" style="width: 24px; height: 24px; display:inline-block; vertical-align:middle;"> Chain</span>
           </div>
         </div>
         <div class="bee-card">
           <div class="spark" aria-hidden="true"></div>
           <div class="bee-wrap">
-            <!-- Inline SVG mascot -->
             <svg class="bee-svg bee-float bee-waggle" viewBox="0 0 300 300" role="img" aria-label="PlanB mascot">
               <defs>
                 <linearGradient id="nectar" x1="0" x2="1"><stop offset="0%" stop-color="#FFC107"/><stop offset="100%" stop-color="#FF8A00"/></linearGradient>
@@ -272,143 +262,91 @@
       </div>
     </section>
 
-<section class="gallery-section relative py-16" id="gallery">
-  <h2 class="text-4xl font-bold text-center text-yellow-600 mb-8">
-    Bee-utiful Gallery🐝
-  </h2>
-
-  <!-- Swiper -->
-  <div class="swiper mySwiper max-w-5xl mx-auto">
-    <div class="swiper-wrapper">
-      
-      <!-- Slides -->
-      <div class="swiper-slide">
-        <img src="images/art-1.jpg" class="rounded-xl max-h-50 object-contain" />
-      </div>
-      <div class="swiper-slide">
-        <img src="images/art-2.jpg" class="rounded-xl max-h-50 object-contain" />
-      </div>
-      <div class="swiper-slide">
-        <img src="images/art-3.jpg" class="rounded-xl max-h-50 object-contain" />
-      </div>
-      <div class="swiper-slide">
-        <img src="images/gym-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/ely-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/market-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/moonsheep-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/never-a-plana.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/penguru-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/super-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/roller-coaster-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-      <div class="swiper-slide">
-        <img src="images/poker-bee.jpg" class="rounded-xl max-h-50 object-contain"/>
-      </div>
-    </div>
-
-    <!-- Pagination (dots) -->
-    <div class="swiper-pagination"></div>
-</section>
-
-  <!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <h2>What is PlanB?</h2>
-    <div class="grid about-grid">
-      <div class="card">
-        <p><strong>PlanB</strong> is all vibes and honey, a cute community-first memecoin where the fun is real and the mission is sweet: games, merch, real honey, and saving the bees. Built to be simple, transparent, and buzz-worthy.</p>
-        <ul>
-          <li>🐝 Playful brand with a trustworthy backbone</li>
-          <li>🍯 Honey game + community contests</li>
-          <li>🛍️ Merch drops + real honey tie-ins</li>
-          <li>🌍 Bee-friendly initiatives & education</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3 style="margin-top:0;color:var(--heading)">Quick Links</h3>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; gap:.6rem;">
-          <a class="btn" href="#tokenomics">Tokenomics</a>
-          <a class="btn secondary" href="#gallery">Gallery</a>
-          <a class="btn secondary" href="#roadmap">Roadmap</a>
-          <a class="btn secondary" href="#buy">How to Buy</a>
-          <a class="btn secondary" href="#faq">FAQ</a>
+    <!-- GALLERY -->
+    <section class="gallery-section" id="gallery">
+      <div class="container">
+        <h2>Bee-utiful Gallery </h2>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="images/art-1.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/art-2.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/art-3.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/gym-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/ely-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/market-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/moonsheep-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/never-a-plana.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/penguru-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/super-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/roller-coaster-bee.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="images/poker-bee.jpg" alt=""></div>
+          </div>
+          <div class="swiper-pagination"></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <h2>What is PlanB?</h2>
+        <div class="grid about-grid">
+          <div class="card">
+            <p><strong>PlanB</strong> is all vibes and honey, a cute community-first memecoin where the fun is real and the mission is sweet: games, merch, real honey, and saving the bees. Built to be simple, transparent, and buzz-worthy.</p>
+            <ul>
+              <li> Playful brand with a trustworthy backbone</li>
+              <li> Honey game + community contests</li>
+              <li> Merch drops + real honey tie-ins</li>
+              <li> Bee-friendly initiatives & education</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 style="margin-top:0;color:var(--heading)">Quick Links</h3>
+            <div class="grid" style="grid-template-columns: 1fr 1fr; gap:.6rem;">
+              <a class="btn" href="#tokenomics">Tokenomics</a>
+              <a class="btn secondary" href="#gallery">Gallery</a>
+              <a class="btn secondary" href="#roadmap">Roadmap</a>
+              <a class="btn secondary" href="#buy">How to Buy</a>
+              <a class="btn secondary" href="#faq">FAQ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- TOKENOMICS -->
-  <section id="tokenomics">
-    <div class="container">
-      <h2>Tokenomics</h2>
-      <div class="grid tok-grid">
-        <div class="card">
-          <div class="label" style="color:var(--muted)">Total Supply</div>
-          <div class="value" style=" font-family: DynaPuff, system-ui;
-              font-optical-sizing: auto;
-              font-weight: 600;
-              font-size: 33px;
-              font-variation-settings:
-              "wdth 100;>TBD </div>
-        </div>
-
-        <div class="card">
-          <div class="label" style="color:var(--muted)">Taxes</div>
-          <div class="value" style="font-family: DynaPuff, system-ui;
-              font-optical-sizing: auto;
-              font-weight: 600;
-              font-size: 33px;
-              font-variation-settings:
-              "wdth 100;>TBD</div>
-        </div>
-
-        <div class="card">
-          <div class="label" style="color:var(--muted)">Allocation</div>
-          <div class="value" style="font-family: DynaPuff, system-ui;
-              font-optical-sizing: auto;
-              font-weight: 600;
-              font-size: 27px;
-              font-variation-settings:
-              "wdth 100;>
-            Community % • LP % • Marketing % • Team %
+    <section id="tokenomics">
+      <div class="container">
+        <h2>Tokenomics</h2>
+        <div class="grid tok-grid">
+          <div class="card">
+            <div class="label">Total Supply</div>
+            <div class="value">TBD</div>
+          </div>
+          <div class="card">
+            <div class="label">Taxes</div>
+            <div class="value">TBD</div>
+          </div>
+          <div class="card">
+            <div class="label">Allocation</div>
+            <div class="value" style="font-size:clamp(.95rem,2.4vw,1.35rem);">
+              Community % • LP % • Marketing % • Team %
+            </div>
+          </div>
+          <div class="card">
+            <div class="label">Contract Address</div>
+            <div class="addr" id="contract">0x9301d2debE3C501a4BeF6Ba5b273B7bD346fa57E</div>
+            <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem;">
+              <button class="btn" onclick="copyAddr()">Copy</button>
+              <a class="btn secondary" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642" target="_blank" rel="noreferrer">View on Explorer</a>
+            </div>
           </div>
         </div>
-
-        <div class="card">
-          <div class="label" style="color:var(--muted)">Contract Address</div>
-          <div class="addr" id="contract" style="word-break:break-word;">
-            0x9301d2debE3C501a4BeF6Ba5b273B7bD346fa57E
-          </div>
-          <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem;">
-            <button class="btn" onclick="copyAddr()">Copy</button>
-            <a class="btn secondary" href="https://dexscreener.com/abstract/0x4acaba4cee5e3ccce29cfad748db390e1b137642" target="_blank" rel="noreferrer">View on Explorer</a>
-          </div>
-        </div>
+        <p style="opacity:.9; margin-top:1rem;color:var(--muted)">Note: Ownership status / renounced info / audit link can be placed here with icons.</p>
       </div>
+    </section>
 
-      <p style="opacity:.9; margin-top:1rem; color:var(--muted)">
-        Note: Ownership status / renounced info / audit link can be placed here with icons.
-      </p>
-    </div>
-  </section>
-
-    <!-- ROADMAP (with background image) -->
+    <!-- ROADMAP -->
     <section id="roadmap">
       <div class="container road has-bg" style="--road-url:url('images/roadmap-bg.jpg')">
         <h2>Roadmap</h2>
@@ -441,7 +379,6 @@
         </div>
       </div>
     </section>
-    
 
     <!-- HOW TO BUY -->
     <section id="buy">
@@ -464,13 +401,17 @@
     <section id="community">
       <div class="container-prt">
         <h2>Community</h2>
-        <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
-          <a class="card" href="https://x.com/_PlanBee_" target="_blank" rel="noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="50" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
-  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-</svg></a>
-          <a class="card" href="https://t.me/PlanBeePortal" target="_blank" rel="noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="55" height="60" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
-</svg></a>
+        <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap:1rem;">
+          <a class="card" href="https://x.com/_PlanBee_" target="_blank" rel="noreferrer" aria-label="X (Twitter)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+            </svg>
+          </a>
+          <a class="card" href="https://t.me/PlanBeePortal" target="_blank" rel="noreferrer" aria-label="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+            </svg>
+          </a>
         </div>
         <p style="opacity:.9; margin-top:1rem;color:var(--muted)">Shoutouts, memes, and fan art can rotate above in the art band. Submit yours!</p>
       </div>
@@ -490,8 +431,9 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    // Theme toggle (persists) — switches ALL font colors via CSS variables
+    // Theme toggle (persist)
     const themeToggle = document.getElementById('themeToggle');
     const saved = localStorage.getItem('planb-theme');
     const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
@@ -513,7 +455,7 @@
       });
     }
 
-    // Demo KPIs (replace with live fetch)
+    // Demo KPIs (mock)
     const fmt = (n) => new Intl.NumberFormat('en-US',{notation:'compact', maximumFractionDigits:2}).format(n);
     function mockStats(){
       const price = (Math.random()*0.0001).toFixed(6);
@@ -526,83 +468,21 @@
       document.getElementById('kpiHolders').textContent = fmt(holders);
     }
     mockStats(); setInterval(mockStats, 5000);
-
-    // Rotating background for the art band
-    const artBand = document.querySelector('.artband');
-    const artImgs = ['images/art-1.jpg','images/art-2.jpg','images/art-3.jpg']; // add your art here
-    let ai = 0;
-    setInterval(()=>{
-      ai = (ai+1)%artImgs.length;
-      const url = artImgs[ai];
-      // use same overlay per theme; background-image includes overlay set in CSS via light/dark rules
-      if (document.documentElement.classList.contains('light')) {
-        artBand.style.backgroundImage = `linear-gradient(180deg, rgba(255,247,230,.8), rgba(255,247,230,.6)), url('${url}')`;
-      } else {
-        artBand.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.4)), url('${url}')`;
-      }
-      artBand.style.backgroundSize = 'contain';
-      artBand.style.backgroundPosition = 'center';
-    }, 4000);
-
-    // Easter egg: press "B"
-    window.addEventListener('keydown', (e)=>{
-      if(e.key.toLowerCase() === 'b'){
-        const bee = document.querySelector('.bee-svg');
-        if(!bee) return;
-        bee.animate([
-          { transform: 'translateY(0) rotate(0deg)' },
-          { transform: 'translate(-8px,-8px) rotate(-10deg)' },
-          { transform: 'translate(8px,-6px) rotate(10deg)' },
-          { transform: 'translateY(0) rotate(0deg)' },
-        ], { duration: 700, easing: 'ease-in-out' });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 3,
+      spaceBetween: 10,
+      loop: true,
+      autoplay: { delay: 1500, disableOnInteraction: false },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      breakpoints: {
+        320: { slidesPerView: 1, spaceBetween: 6 },
+        480: { slidesPerView: 2, spaceBetween: 8 },
+        768: { slidesPerView: 3, spaceBetween: 12 }
       }
     });
-    
-  window.onscroll = function () {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      backToTopBtn.style.display = "block";
-    } else {
-      backToTopBtn.style.display = "none";
-    }
-  };
   </script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 0,
-    loop: true,
-    autoplay: {
-      delay: 1500,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-
-    // 📱 Responsive breakpoints
-    breakpoints: {
-      320: {  // small phones
-        slidesPerView: 1,
-        spaceBetween: 5,
-      },
-      480: {  // larger phones
-        slidesPerView: 2,
-        spaceBetween: 10,
-      },
-      768: {  // tablets
-        slidesPerView: 3,
-        spaceBetween: 15,
-      }
-    }
-  });
-</script>
-
 </body>
 </html>
