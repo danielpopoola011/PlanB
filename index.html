@@ -8,10 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Inter:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   <style>
+    
   :root {
     --honey:#FFC107; --amber:#FF8A00; --cream:#FFF7E6;
     --ink:#141416; --leaf:#26C281; --sky:#5CC4FF;
@@ -20,6 +24,8 @@
     --glass:rgba(255,255,255,0.65);
     --heading:var(--honey);
     --border:rgba(255,255,255,.12);
+
+
   }
   html.light {
     --bg:#fff7e6; --fg:#1b1c1f; --muted:#4d5058;
@@ -32,13 +38,24 @@
   html,body { height:100% }
   body {
     margin:0; background:var(--bg); color:var(--fg);
-    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+        
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 600;
+   font-size: 40px;
+  font-variation-settings:
+    "wdth" 100;
     line-height:1.45;
-    transition:background .25s ease,color .25s ease;
+    transition:background .25s ease,color .25s ease;;color:var(--heading)
   }
   a { color:var(--sky); text-decoration:none }
   img { max-width:100%; height:auto }
-  .container { width:min(1200px,92vw); margin:0 auto }
+  .container { width:min(1200px,86vw); margin:0 auto }
+  .container-prt { width:min(900px,16.5vw); margin:0 auto }
+  .badge{
+    padding: 1px;
+  }
+
 
   /* NAV */
   header.nav {
@@ -52,9 +69,22 @@
   .nav-inner {
     display:flex; align-items:center; justify-content:space-between;
     padding:.75rem 0;
+     font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 30px;
+  font-variation-settings:
+  "wdth" 100;
   }
   .brand { display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px }
-  .brand span { font-family:"Baloo 2",cursive; font-size:1.1rem; color:var(--fg) }
+  .brand span {   
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 40px;
+  font-variation-settings:
+  "wdth" 100;
+  }
   .nav-links { display:flex; gap:1rem }
   .nav-links a { color:var(--fg); opacity:.9 }
   .nav-actions { display:flex; align-items:center; gap:.6rem }
@@ -65,6 +95,12 @@
     font-weight:700; background:linear-gradient(90deg,var(--honey),var(--amber));
     color:#141416; box-shadow:0 10px 24px rgba(255,193,7,.25);
     transition:transform .18s ease,box-shadow .18s ease;
+        font-family: "DynaPuff", system-ui;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-size: 30px;
+        font-variation-settings:
+        "wdth" 100;
   }
   .btn:hover { transform:translateY(-1px) scale(1.01); box-shadow:0 14px 30px rgba(255,193,7,.35) }
   .btn.secondary { background:transparent; color:var(--fg); border:2px solid var(--border); box-shadow:none }
@@ -72,7 +108,15 @@
   /* HERO */
   .hero {
     position:relative; padding:6rem 0 4rem; overflow:hidden;
-  }
+          
+       font-family: "DynaPuff", system-ui;
+       font-optical-sizing: auto;
+       font-weight: 600;
+       font-size: 29px;
+       font-variation-settings:
+       "wdth" 100;
+}
+
   .hero.has-bg::before {
     content:""; position:absolute; inset:0; z-index:-1;
     background-image:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)), var(--hero-url, url('images/hero-bg1.jpg'));
@@ -83,8 +127,18 @@
     mix-blend-mode:multiply;
   }
   .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center }
-  .hero h1 { font-family:"Baloo 2",cursive; font-size:clamp(2.4rem,5vw,4.1rem); color:var(--heading) }
-  .hero p { font-size:1.05rem; max-width:55ch }
+  .hero h1 {  font-family: "DynaPuff", system-ui;
+              font-optical-sizing: auto;
+              font-weight: 600;
+              font-size: 75px;
+              font-variation-settings:
+    "wdth" 100;; color:var(--heading) }
+  .hero p {  font-family: "DynaPuff", system-ui;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-size: 33px;
+            font-variation-settings:
+            "wdth" 100;; max-width:55ch }
 
   /* Gallery / Carousel */
   .swiper-slide img {
@@ -98,7 +152,15 @@
 
   /* Sections */
   section { padding:4rem 0 }
-  h2 { font-family:"Baloo 2",cursive; font-size:clamp(1.6rem,3.4vw,2.2rem); color:var(--heading) }
+  h2 {    
+
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 600;
+ font-size: 68px;
+  font-variation-settings:
+    "wdth" 100;
+} 
   .grid { display:grid; gap:1rem }
   .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1rem }
 
@@ -110,6 +172,7 @@
   @media (max-width:768px) {
     .about-container { flex-direction:column; text-align:center; }
     .about-container > div { width:100%; margin-bottom:20px }
+
   }
 
   /* Responsive Adjustments */
@@ -139,7 +202,7 @@
     font-size: 1.8rem;
   }
   #about{
-    display: list-itemj;
+    display: list-item;
   }
 }
 </style>
@@ -184,7 +247,7 @@
           <div class="trust">
             <span class="badge">✅ Audited (link)</span>
             <span class="badge">🔒 LP Locked</span>
-            <span class="badge">⛓️ Chain: <strong>Abstract</strong></span>
+            <span class="badge"><img src="Abs-logo.jpg" style="width: 30px; height: 30px; display: inline-flex;"> Chain</span>
           </div>
         </div>
         <div class="bee-card">
@@ -297,17 +360,32 @@
       <div class="grid tok-grid">
         <div class="card">
           <div class="label" style="color:var(--muted)">Total Supply</div>
-          <div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem; color:var(--fg)">TBD</div>
+          <div class="value" style=" font-family: DynaPuff, system-ui;
+              font-optical-sizing: auto;
+              font-weight: 600;
+              font-size: 33px;
+              font-variation-settings:
+              "wdth 100;>TBD </div>
         </div>
 
         <div class="card">
           <div class="label" style="color:var(--muted)">Taxes</div>
-          <div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem; color:var(--fg)">TBD</div>
+          <div class="value" style="font-family: DynaPuff, system-ui;
+              font-optical-sizing: auto;
+              font-weight: 600;
+              font-size: 33px;
+              font-variation-settings:
+              "wdth 100;>TBD</div>
         </div>
 
         <div class="card">
           <div class="label" style="color:var(--muted)">Allocation</div>
-          <div class="value" style="font-family:'Space Mono',monospace; font-size:1.1rem; color:var(--fg)">
+          <div class="value" style="font-family: DynaPuff, system-ui;
+              font-optical-sizing: auto;
+              font-weight: 600;
+              font-size: 27px;
+              font-variation-settings:
+              "wdth 100;>
             Community % • LP % • Marketing % • Team %
           </div>
         </div>
@@ -384,12 +462,15 @@
 
     <!-- COMMUNITY -->
     <section id="community">
-      <div class="container">
+      <div class="container-prt">
         <h2>Community</h2>
         <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
-          <a class="card" href="https://x.com/_PlanBee_" target="_blank" rel="noreferrer">🐦 Follow on X</a>
-          <a class="card" href="https://t.me/PlanBeePortal" target="_blank" rel="noreferrer">💬 Telegram</a>
-          <a class="card" href="#" target="_blank" rel="noreferrer">📸 Instagram</a>
+          <a class="card" href="https://x.com/_PlanBee_" target="_blank" rel="noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="50" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+</svg></a>
+          <a class="card" href="https://t.me/PlanBeePortal" target="_blank" rel="noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="55" height="60" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+</svg></a>
         </div>
         <p style="opacity:.9; margin-top:1rem;color:var(--muted)">Shoutouts, memes, and fan art can rotate above in the art band. Submit yours!</p>
       </div>
